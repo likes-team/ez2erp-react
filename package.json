@@ -1,7 +1,7 @@
 {
-  "name": "isomorphic",
-  "version": "7.5.0",
-  "description": "A nextjs template to build dashboard",
+  "name": "ez2erp",
+  "version": "0.1.0",
+  "description": "EZ2ERP dashboard",
   "private": true,
   "scripts": {
     "dev": "turbo dev",
