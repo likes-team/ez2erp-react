@@ -59,7 +59,7 @@ import {
 export const berylliumSidebarMenuItems = [
   // label start
   {
-    name: 'Overview',
+    name: 'Overview2',
   },
   // label end
   {

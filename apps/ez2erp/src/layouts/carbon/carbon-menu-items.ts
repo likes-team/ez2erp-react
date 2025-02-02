@@ -89,7 +89,7 @@ export const carbonMenuItems: MenuItemsType[] = [
   {
     id: '1',
     name: 'Dashboard',
-    title: 'Overview',
+    title: 'Overview3',
     icon: PiBrowser,
     menuItems: [
       {

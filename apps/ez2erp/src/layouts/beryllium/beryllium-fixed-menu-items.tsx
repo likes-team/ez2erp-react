@@ -86,7 +86,7 @@ export const berylliumMenuItems: MenuItemsType[] = [
   {
     id: '1',
     name: 'Home',
-    title: 'Overview',
+    title: 'Overview1',
     icon: PiHouse,
     menuItems: [
       {

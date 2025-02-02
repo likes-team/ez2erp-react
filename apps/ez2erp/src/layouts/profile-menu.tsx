@@ -7,6 +7,7 @@ import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useSession } from "next-auth/react"
 
 export default function ProfileMenu({
   buttonClassName,
@@ -82,6 +83,9 @@ const menuItems = [
 ];
 
 function DropdownMenu() {
+  const { data: session, status } = useSession();
+  console.log(session?.user.email, status);
+
   return (
     <div className="w-64 text-left rtl:text-right">
       <div className="flex items-center border-b border-gray-300 px-6 pb-5 pt-6">

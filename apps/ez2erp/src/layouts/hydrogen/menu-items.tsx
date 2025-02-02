@@ -61,7 +61,7 @@ import {
 export const menuItems = [
   // label start
   {
-    name: 'Overview',
+    name: 'Overview5',
   },
   // label end
   {
