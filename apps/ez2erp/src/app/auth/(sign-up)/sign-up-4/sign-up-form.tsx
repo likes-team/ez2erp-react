@@ -89,7 +89,7 @@ export default function SignUpForm() {
       <Text className="mt-6 text-center text-[15px] leading-loose text-gray-500 md:mt-7 lg:mt-9 lg:text-base">
         Don’t have an account?{' '}
         <Link
-          href={routes.auth.signIn4}
+          href={routes.login}
           className="font-semibold text-gray-700 transition-colors hover:text-primary"
         >
           Sign In

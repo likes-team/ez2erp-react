@@ -308,7 +308,7 @@ export const pageLinks = [
   },
   {
     name: 'Elegant Sign In',
-    href: routes.auth.signIn4,
+    href: routes.login,
   },
   {
     name: 'Classic Sign In',

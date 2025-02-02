@@ -4,6 +4,7 @@ import GoogleProvider from 'next-auth/providers/google';
 import { env } from '@/env.mjs';
 import isEqual from 'lodash/isEqual';
 import { pagesOptions } from './pages-options';
+import { lambdaUrls } from '@/config/lambda-urls';
 
 export const authOptions: NextAuthOptions = {
   // debug: true,
@@ -51,17 +52,35 @@ export const authOptions: NextAuthOptions = {
         // You need to provide your own logic here that takes the credentials
         // submitted and returns either a object representing a user or value
         // that is false/null if the credentials are invalid
-        const user = {
-          email: 'admin@admin.com',
-          password: 'admin',
-        };
-
-        if (
-          isEqual(user, {
-            email: credentials?.email,
-            password: credentials?.password,
+        console.log(credentials);
+        
+        // const user = {
+        //   email: 'admin@admin.com',
+        //   password: 'admin',
+        // };
+        const loginResponse = await fetch(lambdaUrls.login, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: credentials.email,
+            password: credentials.password,
           })
-        ) {
+        })
+
+        const loginData: any = await loginResponse.json();
+        console.log('login successs');
+        console.log(loginData);
+
+        if (loginData.status == "success"){
+          const user = {
+            email: loginData.email,
+            id: loginData.id,
+            fname: loginData.fname,
+            lname: loginData.lname
+          }
           return user as any;
         }
         return null;

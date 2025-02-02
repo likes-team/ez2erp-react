@@ -543,7 +543,7 @@ export const berylliumSidebarMenuItems = [
       },
       {
         name: 'Elegant Sign in',
-        href: routes.auth.signIn4,
+        href: routes.login,
       },
       {
         name: 'Classic Sign in',

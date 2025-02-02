@@ -1,4 +1,7 @@
 export const routes = {
+  // EZ2ERP Routes
+  login: '/login',
+  // Template Routes
   eCommerce: {
     dashboard: '/ecommerce',
     products: '/ecommerce/products',
