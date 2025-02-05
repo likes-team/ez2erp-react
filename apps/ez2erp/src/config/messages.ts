@@ -1,4 +1,6 @@
 export const messages = {
+  // Ez2erp messages
+  requestError: "Sorry, there was a problem with your request.",
   passwordOneUppercase: `The Password must contain at least one uppercase character`,
   passwordOneLowercase: `The Password must contain at least one lowercase character`,
   passwordOneNumeric: `The password must contain at least one numerical character.`,

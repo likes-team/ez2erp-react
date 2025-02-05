@@ -1,6 +1,10 @@
 export const routes = {
   // EZ2ERP Routes
   login: '/login',
+  inventory: {
+    products: '/inventory/products',
+    createProduct: '/inventory/products/create'
+  },
   // Template Routes
   eCommerce: {
     dashboard: '/ecommerce',
