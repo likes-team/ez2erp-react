@@ -84,7 +84,7 @@ export function useTanStackTable<T extends Record<string, any>>({
   );
   // these are custom functions dependent on dnd kit and react-table to handle Drag and Drop events
   // =================================================================================================
-
+  console.log("Current data:", data);
   const table = useReactTable({
     data,
     columns,

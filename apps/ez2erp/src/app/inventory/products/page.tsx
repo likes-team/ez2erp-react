@@ -16,11 +16,11 @@ const pageHeader = {
   title: 'Products',
   breadcrumb: [
     {
-      href: routes.eCommerce.dashboard,
+      href: routes.mainDashboard,
       name: 'Inventory',
     },
     {
-      href: routes.eCommerce.products,
+      href: routes.inventory.products,
       name: 'Products',
     },
     {

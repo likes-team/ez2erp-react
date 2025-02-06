@@ -1,5 +1,6 @@
 export const routes = {
   // EZ2ERP Routes
+  mainDashboard: "/",
   login: '/login',
   inventory: {
     products: '/inventory/products',

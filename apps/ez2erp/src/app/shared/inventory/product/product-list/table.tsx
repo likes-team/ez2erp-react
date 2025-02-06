@@ -1,6 +1,6 @@
 'use client';
 
-import { ProductType } from '@/data/products-data';
+import { ProductType, productsData } from '@/data/products-data';
 import Table from '@core/components/table';
 import { useTanStackTable } from '@core/components/table/custom/use-TanStack-Table';
 import TablePagination from '@core/components/table/pagination';
@@ -11,8 +11,11 @@ import TableFooter from '@core/components/table/footer';
 import { TableClassNameProps } from '@core/components/table/table-types';
 import cn from '@core/utils/class-names';
 import { exportToCSV } from '@core/utils/export-to-csv';
+import { lambdaUrls } from '@/config/lambda-urls';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export default function ProductsTable({
+  tableData=[],
   pageSize = 5,
   hideFilters = false,
   hidePagination = false,
@@ -23,6 +26,7 @@ export default function ProductsTable({
   },
   paginationClassName,
 }: {
+  tableData?: ProductType[]; 
   pageSize?: number;
   hideFilters?: boolean;
   hidePagination?: boolean;
@@ -30,10 +34,9 @@ export default function ProductsTable({
   classNames?: TableClassNameProps;
   paginationClassName?: string;
 }) {
-  const products: ProductType[] = [];
 
   const { table, setData } = useTanStackTable<ProductsDataType>({
-    tableData: products,
+    tableData: tableData,
     columnConfig: productsListColumns,
     options: {
       initialState: {
@@ -43,12 +46,9 @@ export default function ProductsTable({
         },
       },
       meta: {
-        handleDeleteRow: (row) => {
+        handleDeleteRow: (row: any) => {
           setData((prev) => prev.filter((r) => r.id !== row.id));
-        },
-        handleMultipleDelete: (rows) => {
-          setData((prev) => prev.filter((r) => !rows.includes(r)));
-        },
+        }
       },
       enableColumnResizing: false,
     },
@@ -66,10 +66,64 @@ export default function ProductsTable({
     );
   }
 
+  const [productData, setProductData] = useState([]);
+  const [isDataFetching, setDataFetching] = useState(true);
+  const getProducts = () => fetch(lambdaUrls.getProducts, {
+    'method': 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    }
+  })
+  .then((res: any) => res.json())
+  .then((data) => {
+    const result: any = [];
+    console.log(data.data.length);
+    for (let i=0; i < data.data.length; i++){
+      const productJson = data.data[i];
+      const product: ProductType = {
+        id: productJson.id,
+        sku: productJson.sku,
+        category: productJson.category_id,
+        name: productJson.name,
+        image: '',
+        stock: 0,
+        price: '',
+        status: '',
+        rating: []
+      }
+      // console.log(product);
+      result.push(product)
+    }
+    setProductData(result);
+    setDataFetching(false);
+  });
+  
+  const initialized = useRef(false);
+  useEffect(() => {
+    if (!initialized.current) {
+      initialized.current = true
+      getProducts();
+    //   setData([...productData]);
+    }
+    getProducts();
+    if (isDataFetching === false){
+      setData([...productData]);
+    }
+  }, []);
+  // getProducts();
+  console.log('productData:', productData);
+
+  console.log(table.getPageCount());
   return (
     <>
       {!hideFilters && <Filters table={table} />}
-      <Table table={table} variant="modern" classNames={classNames} />
+      <Table
+        table={table}
+        isLoading={isDataFetching}
+        variant="modern"
+        classNames={classNames}
+      />
       {!hideFooter && <TableFooter table={table} onExport={handleExportData} />}
       {!hidePagination && (
         <TablePagination
