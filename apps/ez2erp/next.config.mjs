@@ -50,7 +50,7 @@ const nextConfig = {
       },
     ],
   },
-  reactStrictMode: true,
+  reactStrictMode: false,
   transpilePackages: ['core'],
 };
 

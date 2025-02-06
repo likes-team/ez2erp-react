@@ -12,7 +12,8 @@ import { TableClassNameProps } from '@core/components/table/table-types';
 import cn from '@core/utils/class-names';
 import { exportToCSV } from '@core/utils/export-to-csv';
 import { lambdaUrls } from '@/config/lambda-urls';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
 
 export default function ProductsTable({
   tableData=[],
@@ -34,9 +35,12 @@ export default function ProductsTable({
   classNames?: TableClassNameProps;
   paginationClassName?: string;
 }) {
+  const [productData, setProductData] = useState([]);
+  const [isDataFetching, setDataFetching] = useState(true);
+  const memoizedProductData = useMemo(() => productData, [productData]);
 
   const { table, setData } = useTanStackTable<ProductsDataType>({
-    tableData: tableData,
+    tableData: memoizedProductData,
     columnConfig: productsListColumns,
     options: {
       initialState: {
@@ -54,20 +58,29 @@ export default function ProductsTable({
     },
   });
 
-  const selectedData = table
-    .getSelectedRowModel()
-    .rows.map((row) => row.original);
+  const initialized = useRef(false);
+  useEffect(() => {
+    if (!initialized.current) {
+      initialized.current = true
+      getProducts();
+    }
+    if (isDataFetching === false){
+      setData(productData);
+    }
+  }, [isDataFetching]);
 
-  function handleExportData() {
-    exportToCSV(
-      selectedData,
-      'ID,Name,Category,Sku,Price,Stock,Status,Rating',
-      `product_data_${selectedData.length}`
-    );
-  }
+  // const selectedData = table
+  //   .getSelectedRowModel()
+  //   .rows.map((row) => row.original);
 
-  const [productData, setProductData] = useState([]);
-  const [isDataFetching, setDataFetching] = useState(true);
+  // function handleExportData() {
+  //   exportToCSV(
+  //     selectedData,
+  //     'ID,Name,Category,Sku,Price,Stock,Status,Rating',
+  //     `product_data_${selectedData.length}`
+  //   );
+  // }
+
   const getProducts = () => fetch(lambdaUrls.getProducts, {
     'method': 'GET',
     headers: {
@@ -99,18 +112,7 @@ export default function ProductsTable({
     setDataFetching(false);
   });
   
-  const initialized = useRef(false);
-  useEffect(() => {
-    if (!initialized.current) {
-      initialized.current = true
-      getProducts();
-    //   setData([...productData]);
-    }
-    getProducts();
-    if (isDataFetching === false){
-      setData([...productData]);
-    }
-  }, []);
+
   // getProducts();
   console.log('productData:', productData);
 
@@ -124,7 +126,7 @@ export default function ProductsTable({
         variant="modern"
         classNames={classNames}
       />
-      {!hideFooter && <TableFooter table={table} onExport={handleExportData} />}
+      {/* {!hideFooter && <TableFooter table={table} onExport={handleExportData} />} */}
       {!hidePagination && (
         <TablePagination
           table={table}
