@@ -2,6 +2,11 @@ import './src/env.mjs';
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+  async redirects() {
+    return [
+      { source: '/', destination: '/dashboard', permanent: true }, // a permanent redirect
+    ];
+  },
   images: {
     remotePatterns: [
       {

@@ -1,22 +1,18 @@
 'use client';
 
-import { ProductType, productsData } from '@/data/products-data';
+import { ProductType} from '@/data/products-data';
 import Table from '@core/components/table';
 import { useTanStackTable } from '@core/components/table/custom/use-TanStack-Table';
 import TablePagination from '@core/components/table/pagination';
-import { ProductsDataType } from '@/app/shared/ecommerce/dashboard/stock-report';
 import { productsListColumns } from './columns';
 import Filters from './filters';
-import TableFooter from '@core/components/table/footer';
 import { TableClassNameProps } from '@core/components/table/table-types';
 import cn from '@core/utils/class-names';
-import { exportToCSV } from '@core/utils/export-to-csv';
-import { lambdaUrls } from '@/config/lambda-urls';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { getProducts } from '@/server/inventory/product-server';
 
 
 export default function ProductsTable({
-  tableData=[],
   pageSize = 5,
   hideFilters = false,
   hidePagination = false,
@@ -27,7 +23,6 @@ export default function ProductsTable({
   },
   paginationClassName,
 }: {
-  tableData?: ProductType[]; 
   pageSize?: number;
   hideFilters?: boolean;
   hidePagination?: boolean;
@@ -39,7 +34,7 @@ export default function ProductsTable({
   const [isDataFetching, setDataFetching] = useState(true);
   const memoizedProductData = useMemo(() => productData, [productData]);
 
-  const { table, setData } = useTanStackTable<ProductsDataType>({
+  const { table, setData } = useTanStackTable<ProductType>({
     tableData: memoizedProductData,
     columnConfig: productsListColumns,
     options: {
@@ -62,61 +57,17 @@ export default function ProductsTable({
   useEffect(() => {
     if (!initialized.current) {
       initialized.current = true
-      getProducts();
+      const products = getProducts().then((data: any) =>{
+        setProductData(data);
+        setDataFetching(false)
+      });
     }
     if (isDataFetching === false){
       setData(productData);
     }
   }, [isDataFetching]);
 
-  // const selectedData = table
-  //   .getSelectedRowModel()
-  //   .rows.map((row) => row.original);
-
-  // function handleExportData() {
-  //   exportToCSV(
-  //     selectedData,
-  //     'ID,Name,Category,Sku,Price,Stock,Status,Rating',
-  //     `product_data_${selectedData.length}`
-  //   );
-  // }
-
-  const getProducts = () => fetch(lambdaUrls.getProducts, {
-    'method': 'GET',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    }
-  })
-  .then((res: any) => res.json())
-  .then((data) => {
-    const result: any = [];
-    console.log(data.data.length);
-    for (let i=0; i < data.data.length; i++){
-      const productJson = data.data[i];
-      const product: ProductType = {
-        id: productJson.id,
-        sku: productJson.sku,
-        category: productJson.category_id,
-        name: productJson.name,
-        image: '',
-        stock: 0,
-        price: '',
-        status: '',
-        rating: []
-      }
-      // console.log(product);
-      result.push(product)
-    }
-    setProductData(result);
-    setDataFetching(false);
-  });
-  
-
-  // getProducts();
   console.log('productData:', productData);
-
-  console.log(table.getPageCount());
   return (
     <>
       {!hideFilters && <Filters table={table} />}
