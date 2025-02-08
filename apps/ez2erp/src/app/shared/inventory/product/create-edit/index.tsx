@@ -20,9 +20,8 @@ import {
 } from '@/validators/create-product.schema';
 import { useLayout } from '@/layouts/use-layout';
 import { LAYOUT_OPTIONS } from '@/config/enums';
-import { lambdaUrls } from '@/config/lambda-urls';
-import { messages } from '@/config/messages';
 import { createProduct } from '@/server/inventory/product-server';
+import { lambdaUrls } from '@/config/lambda-urls';
 
 const MAP_STEP_TO_COMPONENT = {
   [formParts.summary]: ProductSummary,
@@ -50,8 +49,26 @@ export default function CreateEditProduct({
   const onSubmit: SubmitHandler<CreateProductInput> = async (data) => {
     setLoading(true);
 
-    const productData: any = await createProduct(data);
+    const payload = {
+      'name': data.name,
+      'sku': data.sku,
+      'product_type': data.productType,
+      'category_id': data.category,
+      'description': data.description,
+      'cost_price': data.costPrice,
+      'sale_price': data.salePrice
+    }
 
+    const productData: any = await fetch(lambdaUrls.createProduct, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    }).then((response) => {
+      return response.json();
+    })
     console.log('successs');
     console.log(productData);
 
