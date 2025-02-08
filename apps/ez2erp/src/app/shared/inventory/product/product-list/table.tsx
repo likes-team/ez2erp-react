@@ -55,16 +55,22 @@ export default function ProductsTable({
 
   const initialized = useRef(false);
   useEffect(() => {
+    let isMounted = true; // note mutable flag
+    console.log(isMounted);
     if (!initialized.current) {
       initialized.current = true
       const products = getProducts().then((data: any) =>{
-        setProductData(data);
-        setDataFetching(false)
+        if (isMounted){
+          setProductData(data);
+          setDataFetching(false);
+        } 
       });
     }
-    if (isDataFetching === false){
+
+    if (isMounted && isDataFetching === false){
       setData(productData);
     }
+    return () => { isMounted = false };
   }, [isDataFetching]);
 
   console.log('productData:', productData);

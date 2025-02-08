@@ -26,7 +26,7 @@ const menuItems = [
   },
   {
     name: 'Account Settings',
-    href: routes.forms.profileSettings,
+    href: routes.profileSettings,
   },
   {
     name: 'Activity Log',

@@ -12,14 +12,7 @@ import FormNav, {
 } from '@/app/shared/inventory/product/create-edit/form-nav';
 import ProductSummary from '@/app/shared/inventory/product/create-edit/product-summary';
 import { defaultValues } from '@/app/shared/inventory/product/create-edit/form-utils';
-import ProductMedia from '@/app/shared/inventory/product/create-edit/product-media';
 import PricingInventory from '@/app/shared/inventory/product/create-edit/pricing-inventory';
-import ProductIdentifiers from '@/app/shared/inventory/product/create-edit/product-identifiers';
-import ShippingInfo from '@/app/shared/inventory/product/create-edit/shipping-info';
-import ProductSeo from '@/app/shared/inventory/product/create-edit/product-seo';
-import DeliveryEvent from '@/app/shared/inventory/product/create-edit/delivery-event';
-import ProductVariants from '@/app/shared/inventory/product/create-edit/product-variants';
-import ProductTaxonomies from '@/app/shared/inventory/product/create-edit/product-tags';
 import FormFooter from '@core/components/form-footer';
 import {
   CreateProductInput,
@@ -29,17 +22,11 @@ import { useLayout } from '@/layouts/use-layout';
 import { LAYOUT_OPTIONS } from '@/config/enums';
 import { lambdaUrls } from '@/config/lambda-urls';
 import { messages } from '@/config/messages';
+import { createProduct } from '@/server/inventory/product-server';
 
 const MAP_STEP_TO_COMPONENT = {
   [formParts.summary]: ProductSummary,
-  // [formParts.media]: ProductMedia,
   [formParts.pricingInventory]: PricingInventory,
-  // [formParts.productIdentifiers]: ProductIdentifiers,
-  // [formParts.shipping]: ShippingInfo,
-  // [formParts.seo]: ProductSeo,
-  // [formParts.deliveryEvent]: DeliveryEvent,
-  // [formParts.variantOptions]: ProductVariants,
-  // [formParts.tagsAndCategory]: ProductTaxonomies,
 };
 
 interface IndexProps {
@@ -62,21 +49,11 @@ export default function CreateEditProduct({
 
   const onSubmit: SubmitHandler<CreateProductInput> = async (data) => {
     setLoading(true);
-    console.log('product_data', data);
-    console.log(lambdaUrls.createProduct);
-    const createProductResponse = await fetch(lambdaUrls.createProduct, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data)
-    })
 
-    const productData: any = await createProductResponse.json();
+    const productData: any = await createProduct(data);
+
     console.log('successs');
     console.log(productData);
-
 
     setTimeout(() => {
       setLoading(false);

@@ -1,12 +1,12 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import ProductDetailsRelatedProducts from '@/app/shared/ecommerce/product/product-details-related-products';
-import ProductDetailsDescription from '@/app/shared/ecommerce/product/product-details-description';
-import ProductDeliveryOptions from '@/app/shared/ecommerce/product/product-delivery-options';
-import ProductDetailsGallery from '@/app/shared/ecommerce/product/product-details-gallery';
-import ProductDetailsSummery from '@/app/shared/ecommerce/product/product-details-summery';
-import ProductDetailsReview from '@/app/shared/ecommerce/product/product-details-review';
+import ProductDetailsRelatedProducts from '@/app/shared/inventory/product/product-details-related-products';
+import ProductDetailsDescription from '@/app/shared/inventory/product/product-details-description';
+import ProductDeliveryOptions from '@/app/shared/inventory/product/product-delivery-options';
+import ProductDetailsGallery from '@/app/shared/inventory/product/product-details-gallery';
+import ProductDetailsSummery from '@/app/shared/inventory/product/product-details-summery';
+import ProductDetailsReview from '@/app/shared/inventory/product/product-details-review';
 import { modernProductsGrid } from '@/data/shop-products';
 import { generateSlug } from '@core/utils/generate-slug';
 

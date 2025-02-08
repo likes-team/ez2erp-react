@@ -41,7 +41,7 @@ export default function FileListTable({ className }: { className?: string }) {
           All Files
         </Title>
         <Link
-          href={routes.file.manager}
+          href={routes.mainDashboard}
           className="text-sm font-medium text-gray-900 hover:underline"
         >
           View all

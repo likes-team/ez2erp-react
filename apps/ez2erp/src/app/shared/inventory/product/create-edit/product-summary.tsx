@@ -6,10 +6,9 @@ import cn from '@core/utils/class-names';
 import FormGroup from '@/app/shared/form-group';
 import {
   categoryOption,
-  typeOption,
+  productTypeOption,
 } from '@/app/shared/inventory/product/create-edit/form-utils';
 import dynamic from 'next/dynamic';
-import SelectLoader from '@core/components/loader/select-loader';
 import QuillLoader from '@core/components/loader/quill-loader';
 // const Select = dynamic(() => import('rizzui').then((mod) => mod.Select), {
 //   ssr: false,
@@ -47,12 +46,12 @@ export default function ProductSummary({ className }: { className?: string }) {
       />
 
       <Controller
-        name="type"
+        name="productType"
         control={control}
         render={({ field: { onChange, value } }) => (
           <Select
             dropdownClassName="h-auto"
-            options={typeOption}
+            options={productTypeOption}
             value={value}
             onChange={onChange}
             label="Product Type"

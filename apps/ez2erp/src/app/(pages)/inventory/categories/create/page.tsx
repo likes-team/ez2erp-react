@@ -1,25 +1,24 @@
-import Link from 'next/link';
-import { PiPlusBold } from 'react-icons/pi';
-import CreateEditProduct from '@/app/shared/inventory/product/create-edit';
-import { metaObject } from '@/config/site.config';
+import CreateCategory from '@/app/shared/inventory/category/create-category';
 import PageHeader from '@/app/shared/page-header';
 import { Button } from 'rizzui/button';
 import { routes } from '@/config/routes';
+import Link from 'next/link';
+import { metaObject } from '@/config/site.config';
 
 export const metadata = {
-  ...metaObject('Create Product'),
+  ...metaObject('Create a Category'),
 };
 
 const pageHeader = {
-  title: 'Create Product',
+  title: 'Create A Category',
   breadcrumb: [
     {
       href: routes.inventory.products,
-      name: 'Inventory',
+      name: 'E-Commerce',
     },
     {
       href: routes.inventory.products,
-      name: 'Products',
+      name: 'Categories',
     },
     {
       name: 'Create',
@@ -27,18 +26,20 @@ const pageHeader = {
   ],
 };
 
-export default function CreateProductPage() {
+export default function CreateCategoryPage() {
   return (
     <>
       <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb}>
         <Link
-          href={routes.inventory.createProduct}
+          href={routes.eCommerce.categories}
           className="mt-4 w-full @lg:mt-0 @lg:w-auto"
         >
+          <Button as="span" className="w-full @lg:w-auto" variant="outline">
+            Cancel
+          </Button>
         </Link>
       </PageHeader>
-
-      <CreateEditProduct />
+      <CreateCategory />
     </>
   );
 }

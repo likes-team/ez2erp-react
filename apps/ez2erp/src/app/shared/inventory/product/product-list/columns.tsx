@@ -82,19 +82,6 @@ export const productsListColumns = [
       <Text className="font-medium text-gray-700">${row.original.costPrice}</Text>
     ),
   }),
-  // columnHelper.display({
-  //   id: 'rating',
-  //   size: 200,
-  //   header: 'Rating',
-  //   cell: ({ row }) => getRatings(row.original.rating),
-  // }),
-  // columnHelper.accessor('status', {
-  //   id: 'status',
-  //   size: 120,
-  //   header: 'Status',
-  //   enableSorting: false,
-  //   cell: ({ row }) => getStatusBadge(row.original.status),
-  // }),
   columnHelper.display({
     id: 'action',
     size: 120,
@@ -111,7 +98,7 @@ export const productsListColumns = [
           placement="top"
           color="invert"
         >
-          <Link href={routes.eCommerce.ediProduct(row.original.id)}>
+          <Link href={routes.inventory.ediProduct(row.original.id)}>
             <ActionIcon
               as="span"
               size="sm"
@@ -119,23 +106,6 @@ export const productsListColumns = [
               aria-label={'Edit Product'}
             >
               <PencilIcon className="h-4 w-4" />
-            </ActionIcon>
-          </Link>
-        </Tooltip>
-        <Tooltip
-          size="sm"
-          content={'View Product'}
-          placement="top"
-          color="invert"
-        >
-          <Link href={routes.eCommerce.productDetails(row.original.id)}>
-            <ActionIcon
-              as="span"
-              size="sm"
-              variant="outline"
-              aria-label={'View Product'}
-            >
-              <EyeIcon className="h-4 w-4" />
             </ActionIcon>
           </Link>
         </Tooltip>
