@@ -1,12 +1,14 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { PiPlusBold } from 'react-icons/pi';
-import { productData } from '@/app/shared/inventory/product/create-edit/form-utils';
 import CreateEditProduct from '@/app/shared/inventory/product/create-edit';
 import PageHeader from '@/app/shared/page-header';
 import { metaObject } from '@/config/site.config';
 import { Button } from 'rizzui/button';
 import { routes } from '@/config/routes';
+import { getProduct } from '@/server/inventory/product-server';
+import { ProductType } from '@/types/product-type';
+import { CreateProductInput } from '@/validators/create-product.schema';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -43,6 +45,10 @@ const pageHeader = {
 
 export default async function EditProductPage({ params }: any) {
   const slug = (await params).slug;
+  console.log(slug);
+  const product: ProductType = await getProduct(slug);
+  console.log(product);
+  const editProductObj: CreateProductInput = {...product};
   return (
     <>
       <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb}>
@@ -57,7 +63,7 @@ export default async function EditProductPage({ params }: any) {
         </Link>
       </PageHeader>
 
-      <CreateEditProduct slug={slug} product={productData} />
+      <CreateEditProduct slug={slug} product={editProductObj} />
     </>
   );
 }

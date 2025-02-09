@@ -1,6 +1,5 @@
 import { z } from 'zod';
 import { messages } from '@/config/messages';
-import { fileSchema } from './common-rules';
 
 export const productFormSchema = z.object({
   name: z.string().min(1, { message: messages.productNameIsRequired }),

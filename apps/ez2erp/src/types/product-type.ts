@@ -5,7 +5,8 @@ export type ProductType = {
     image: string;
     sku: string;
     stock: number;
-    salePrice: string;
-    costPrice: string;
+    salePrice: number;
+    costPrice: number;
     status: string;
+    productType: string;
   };
