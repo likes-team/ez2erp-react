@@ -9,7 +9,7 @@ import Filters from './filters';
 import { TableClassNameProps } from '@core/components/table/table-types';
 import cn from '@core/utils/class-names';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { getProducts } from '@/server/inventory/product-server';
+import { deleteProduct, getProducts } from '@/server/inventory/product-server';
 
 
 export default function ProductsTable({
@@ -46,6 +46,7 @@ export default function ProductsTable({
       },
       meta: {
         handleDeleteRow: (row: any) => {
+          deleteProduct(row.id);
           setData((prev) => prev.filter((r) => r.id !== row.id));
         }
       },

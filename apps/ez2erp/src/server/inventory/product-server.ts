@@ -30,6 +30,7 @@ export async function getProduct(id: string): Promise<ProductType> {
   return response;
 }
 
+
 export async function getProducts(): Promise<ProductType> {
     const response = await fetch(lambdaUrls.getProducts, {
         'method': 'GET',
@@ -63,6 +64,7 @@ export async function getProducts(): Promise<ProductType> {
     return response;
 } 
 
+
 export async function createProduct(data: CreateProductInput): Promise<any> {
   console.log('product_data', data);
 
@@ -88,6 +90,7 @@ export async function createProduct(data: CreateProductInput): Promise<any> {
   })
   return createProductResponse;
 }
+
 
 export async function updateProduct(id: string, data: CreateProductInput): Promise<any> {
   console.log('product_data', data);
@@ -115,3 +118,18 @@ export async function updateProduct(id: string, data: CreateProductInput): Promi
   return updateProductResponse;
 }
 
+
+export async function deleteProduct(id: string): Promise<any> {
+  console.log('id', id);
+
+  const deleteProductResponse = await fetch(lambdaUrls.updateProduct(id), {
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    }
+  }).then((response) => {
+    return response.json();
+  })
+  return deleteProductResponse;
+}
