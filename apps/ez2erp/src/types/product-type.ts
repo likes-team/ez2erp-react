@@ -9,4 +9,4 @@ export type ProductType = {
     costPrice: number;
     status: string;
     productType: string;
-  };
+};

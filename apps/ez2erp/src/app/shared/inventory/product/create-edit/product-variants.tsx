@@ -9,7 +9,7 @@ import { useCallback } from 'react';
 import {
   variantOption,
   productVariants,
-} from '@/app/shared/ecommerce/product/create-edit/form-utils';
+} from '@/app/shared/inventory/product/create-edit/form-utils';
 import TrashIcon from '@core/components/icons/trash';
 import SelectLoader from '@core/components/loader/select-loader';
 import { PiPlusBold } from 'react-icons/pi';

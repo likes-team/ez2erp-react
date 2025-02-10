@@ -7,5 +7,7 @@ export const lambdaUrls = {
     getProduct: 
         (id: string) => `${process.env.NEXT_PUBLIC_LAMBDA_HOST}/products/${id}`,
     updateProduct: 
-    (id: string) => `${process.env.NEXT_PUBLIC_LAMBDA_HOST}/products/${id}`
+    (id: string) => `${process.env.NEXT_PUBLIC_LAMBDA_HOST}/products/${id}`,
+    getProductCategories: `${process.env.NEXT_PUBLIC_LAMBDA_HOST}/product-categories`,
+    createProductCategory: `${process.env.NEXT_PUBLIC_LAMBDA_HOST}/product-categories`,
 }

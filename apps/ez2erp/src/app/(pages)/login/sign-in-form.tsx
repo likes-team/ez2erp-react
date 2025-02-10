@@ -60,7 +60,7 @@ export default function SignInForm() {
                 className="[&>label>span]:font-medium"
               />
               <Link
-                href={routes.auth.forgotPassword4}
+                href={routes.notFound}
                 className="h-auto p-0 text-sm font-semibold text-gray-700 underline transition-colors hover:text-primary hover:no-underline"
               >
                 Forgot Password?
@@ -80,7 +80,7 @@ export default function SignInForm() {
       <Text className="mt-6 text-center text-[15px] leading-loose text-gray-500 md:mt-7 lg:mt-9 lg:text-base">
         Don’t have an account?{' '}
         <Link
-          href={routes.auth.signUp4}
+          href={routes.notFound}
           className="font-semibold text-gray-700 transition-colors hover:text-primary"
         >
           Sign Up

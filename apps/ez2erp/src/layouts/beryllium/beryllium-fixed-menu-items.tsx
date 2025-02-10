@@ -1,4 +1,7 @@
+import { DUMMY_ID } from '@/config/constants';
+import { routes } from '@/config/routes';
 import { IconType } from 'react-icons/lib';
+
 import { atom } from 'jotai';
 import {
   PiFolder,
@@ -33,7 +36,7 @@ export const berylliumMenuItems: MenuItemsType[] = [
   {
     id: '1',
     name: 'Home',
-    title: 'Overview1',
+    title: 'Overview',
     icon: PiHouse,
     menuItems: [
       {

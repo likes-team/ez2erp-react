@@ -7,8 +7,12 @@ export const routes = {
     createProduct: '/inventory/products/create',
     // productDetails: (slug: string) => `/inventory/products/${slug}`,
     ediProduct: (slug: string) => `/inventory/products/${slug}/edit`,
-    productCategories: '/inventory/product-categories'
+    productCategories: '/inventory/product-categories',
+    editCategory: (id: string) => `/inventory/products/${id}/edit`,
+    createProductCategory: '/inventory/product-categories/create',
   },
   profile: '#',
-  profileSettings: '#'
+  profileSettings: '#',
+  accessDenied: '/access-denied',
+  notFound: '/not-found'
 };

@@ -1,10 +1,10 @@
 import { lambdaUrls } from "@/config/lambda-urls";
+import { ProductCategoryType } from "@/types/product-category-type";
 import { ProductType } from "@/types/product-type";
+import { ProductCategoryFormInput } from "@/validators/create-category.schema";
 import { CreateProductInput } from "@/validators/create-product.schema";
 
 export async function getProduct(id: string): Promise<ProductType> {
-  const url = lambdaUrls.getProduct(id);
-  console.log(url);
   const response = await fetch(lambdaUrls.getProduct(id), {
       'method': 'GET',
       headers: {
@@ -33,8 +33,8 @@ export async function getProduct(id: string): Promise<ProductType> {
 }
 
 
-export async function getProducts(): Promise<ProductType> {
-    const response = await fetch(lambdaUrls.getProducts, {
+export async function getProductCategories(): Promise<ProductCategoryType> {
+    const response = await fetch(lambdaUrls.getProductCategories, {
         'method': 'GET',
         headers: {
           'Accept': 'application/json',
@@ -67,26 +67,16 @@ export async function getProducts(): Promise<ProductType> {
 } 
 
 
-export async function createProduct(data: CreateProductInput): Promise<any> {
-  console.log('product_data', data);
+export async function createProductCategory(data: ProductCategoryFormInput): Promise<any> {
+  console.log('payload:', data);
 
-  const payload = {
-    'name': data.name,
-    'sku': data.sku,
-    'product_type': data.productType,
-    'category_id': data.category,
-    'description': data.description,
-    'cost_price': data.costPrice,
-    'sale_price': data.salePrice
-  }
-
-  const createProductResponse = await fetch(lambdaUrls.createProduct, {
+  const createProductResponse = await fetch(lambdaUrls.createProductCategory, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(data)
   }).then((response) => {
     return response.json();
   })

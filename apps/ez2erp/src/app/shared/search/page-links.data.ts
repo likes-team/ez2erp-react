@@ -6,5 +6,6 @@ export const pageLinks = [
   // label start
   {
     name: 'Home',
+    href: '#'
   }
 ];
