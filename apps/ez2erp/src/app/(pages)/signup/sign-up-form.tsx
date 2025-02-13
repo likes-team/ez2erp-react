@@ -8,8 +8,13 @@ import { useMedia } from '@core/hooks/use-media';
 import { Form } from '@core/ui/form';
 import { routes } from '@/config/routes';
 import { SignUpSchema, signUpSchema } from '@/validators/signup.schema';
-
+import { SignUp } from '@/server/auth/signup';
+import toast from 'react-hot-toast';
 const initialValues = {
+  firstName:'',
+  lastName:'',
+  middleName:'',
+  phoneNumber:'',
   email: '',
   password: '',
   isAgreed: false,
@@ -18,9 +23,14 @@ const initialValues = {
 export default function SignUpForm() {
   const isMedium = useMedia('(max-width: 1200px)', false);
   const [reset, setReset] = useState({});
-  const onSubmit: SubmitHandler<SignUpSchema> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler <SignUpSchema> =async (data) => {
+    
+    let signUpData : any;
+   signUpData = await SignUp(data);
+;
     setReset({ ...initialValues, isAgreed: false });
+    console.log("This is the Sign Up message",signUpData.status)
+
   };
 
   return (
@@ -35,6 +45,43 @@ export default function SignUpForm() {
       >
         {({ register, formState: { errors } }) => (
           <div className="space-y-5 lg:space-y-6">
+            
+            <Input
+              type="text"
+              size={isMedium ? 'lg' : 'xl'}
+              label="First Name"
+              placeholder="Enter your First Name"
+              className="[&>label>span]:font-medium"
+              {...register('firstName')}
+              error={errors.firstName?.message}
+            />
+            <Input
+              type="text"
+              size={isMedium ? 'lg' : 'xl'}
+              label="Middle Name"
+              placeholder="Enter your Middle Name"
+              className="[&>label>span]:font-medium"
+              {...register('middleName')}
+              error={errors.middleName?.message}
+            />
+            <Input
+              type="text"
+              size={isMedium ? 'lg' : 'xl'}
+              label="Last Name"
+              placeholder="Enter your Last name"
+              className="[&>label>span]:font-medium"
+              {...register('lastName')}
+              error={errors.lastName?.message}
+            />
+             <Input
+              type="text"
+              size={isMedium ? 'lg' : 'xl'}
+              label="Phone Number"
+              placeholder="Enter your Phone Number"
+              className="[&>label>span]:font-medium"
+              {...register('phoneNumber')}
+              error={errors.phoneNumber?.message}
+            />
             <Input
               type="email"
               size={isMedium ? 'lg' : 'xl'}
@@ -52,7 +99,7 @@ export default function SignUpForm() {
               className="[&>label>span]:font-medium"
               error={errors.password?.message}
             />
-            <div className="col-span-2 flex items-start text-gray-700">
+            {/* <div className="col-span-2 flex items-start text-gray-700">
               <Checkbox
                 {...register('isAgreed')}
                 className="[&>label.items-center]:items-start [&>label>div.leading-none]:mt-0.5 [&>label>div.leading-none]:sm:mt-0 [&>label>span]:font-medium"
@@ -75,7 +122,7 @@ export default function SignUpForm() {
                   </Text>
                 }
               />
-            </div>
+            </div> */}
             <Button
               className="w-full"
               type="submit"

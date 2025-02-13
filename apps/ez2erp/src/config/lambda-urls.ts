@@ -2,6 +2,7 @@
 
 export const lambdaUrls = {
     login: `${process.env.NEXT_PUBLIC_LAMBDA_HOST}/login`,
+    users:`${process.env.NEXT_PUBLIC_LAMBDA_HOST}/users`,
     createProduct: `${process.env.NEXT_PUBLIC_LAMBDA_HOST}/products`,
     getProducts: `${process.env.NEXT_PUBLIC_LAMBDA_HOST}/products`,
     getProduct: 

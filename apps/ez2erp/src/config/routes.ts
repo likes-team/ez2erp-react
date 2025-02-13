@@ -9,6 +9,10 @@ export const routes = {
     ediProduct: (slug: string) => `/inventory/products/${slug}/edit`,
     productCategories: '/inventory/product-categories'
   },
+  auth: {
+    signUp4: '/auth/sign-up-4',
+    
+  },
   profile: '#',
   profileSettings: '#'
 };
