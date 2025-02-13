@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form';
 import { Input } from 'rizzui';
 import cn from '@core/utils/class-names';
 import FormGroup from '@/app/shared/form-group';
-import CustomFields from '@/app/shared/ecommerce/product/create-edit/custom-fields';
+import CustomFields from '@/app/shared/inventory/product/create-edit/custom-fields';
 
 interface ProductIdentifiersProps {
   className?: string;

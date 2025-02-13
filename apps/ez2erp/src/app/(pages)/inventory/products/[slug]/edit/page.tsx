@@ -31,7 +31,7 @@ const pageHeader = {
   breadcrumb: [
     {
       href: routes.inventory.products,
-      name: 'E-Commerce',
+      name: 'Inventory',
     },
     {
       href: routes.inventory.products,
@@ -47,6 +47,19 @@ export default async function EditProductPage({ params }: any) {
   const slug = (await params).slug;
   console.log(slug);
   const product: ProductType = await getProduct(slug);
+
+  // const product: ProductType = {
+  //   id: '',
+  //   name: '',
+  //   category: '',
+  //   image: '',
+  //   sku: '',
+  //   stock: 0,
+  //   salePrice: 0,
+  //   costPrice: 0,
+  //   status: '',
+  //   productType: '',
+  // }
   console.log(product);
   const editProductObj: CreateProductInput = {...product};
   return (

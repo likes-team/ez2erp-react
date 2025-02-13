@@ -17,6 +17,7 @@ export const menuItems = [
     name: 'Main Dashboard',
     href: '/',
     icon: <PiFolderDuotone />,
+    badge: 'NEW',
   },
   {
     name: 'Accounting',
@@ -25,6 +26,7 @@ export const menuItems = [
     name: 'Customers',
     href: '/customers',
     icon: <PiFolderDuotone />,
+    badge: 'NEW',
   },
   {
     name: 'POS',
@@ -33,6 +35,7 @@ export const menuItems = [
     name: 'Shop',
     href: '/shop',
     icon: <PiFolderDuotone />,
+    badge: 'NEW',
   },
   {
     name: 'Inventory',
@@ -41,15 +44,18 @@ export const menuItems = [
     name: 'Products',
     href: '/inventory/products',
     icon: <PiFolderDuotone />,
+    badge: 'NEW',
   },
   {
     name: 'Configuration',
     href: '#',
     icon: <PiWrenchDuotone />,
+    badge: 'NEW',
     dropdownItems: [
       {
         name: 'Product Categories',
-        href: routes.inventory.products,
+        href: routes.inventory.productCategories,
+        badge: 'NEW',
       },
     ],
   },

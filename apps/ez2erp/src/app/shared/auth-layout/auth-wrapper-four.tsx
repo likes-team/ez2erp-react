@@ -119,7 +119,7 @@ function AuthHeader() {
           <PiArrowLineRight className="h-4 w-4" />
           <span>Login</span>
         </AuthNavLink>
-        <AuthNavLink href={routes.auth.signUp4}>
+        <AuthNavLink href={routes.notFound}>
           <PiUserCirclePlus className="h-4 w-4" />
           <span>Sign Up</span>
         </AuthNavLink>

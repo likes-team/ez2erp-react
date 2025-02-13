@@ -5,7 +5,7 @@ import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 import { Input, Switch, Button, ActionIcon } from 'rizzui';
 import cn from '@core/utils/class-names';
 import FormGroup from '@/app/shared/form-group';
-import { locationShipping } from '@/app/shared/ecommerce/product/create-edit/form-utils';
+import { locationShipping } from '@/app/shared/inventory/product/create-edit/form-utils';
 import TrashIcon from '@core/components/icons/trash';
 import { PiPlusBold } from 'react-icons/pi';
 

@@ -5,9 +5,9 @@ export type ProductType = {
   image: string;
   sku: string;
   stock: number;
-  salePrice: string;
-  costPrice: string;
+  price: string;
   status: string;
+  rating: number[];
 };
 
 export const productsData = [
