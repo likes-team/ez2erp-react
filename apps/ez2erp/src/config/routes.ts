@@ -13,7 +13,10 @@ export const routes = {
   },
   auth: {
     signUp4: '/auth/sign-up-4',
-    
+  },
+  accounting: {
+    customers: '/accounting/customers',
+    createCustomer: '/accounting/customers/create'
   },
   profile: '#',
   profileSettings: '#',

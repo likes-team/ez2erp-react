@@ -1,9 +1,6 @@
-import { DUMMY_ID } from '@/config/constants';
 import { routes } from '@/config/routes';
 import {
   PiFolderDuotone,
-  PiShoppingCartDuotone,
-  PiPipeWrenchDuotone,
   PiWrenchDuotone
 } from 'react-icons/pi';
 
@@ -17,14 +14,14 @@ export const menuItems = [
     name: 'Main Dashboard',
     href: '/',
     icon: <PiFolderDuotone />,
-    badge: 'NEW',
+    badge: 'DEV',
   },
   {
     name: 'Accounting',
   },
   {
     name: 'Customers',
-    href: '/customers',
+    href: '/accounting/customers',
     icon: <PiFolderDuotone />,
     badge: 'NEW',
   },
@@ -35,7 +32,7 @@ export const menuItems = [
     name: 'Shop',
     href: '/shop',
     icon: <PiFolderDuotone />,
-    badge: 'NEW',
+    badge: 'DEV',
   },
   {
     name: 'Inventory',

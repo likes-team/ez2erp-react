@@ -3,13 +3,14 @@ import { ProductType } from "@/types/product-type";
 import { CreateProductInput } from "@/validators/create-product.schema";
 
 export async function getProduct(id: string): Promise<ProductType> {
-  const url = lambdaUrls.getProduct(id);
+  const url = `${lambdaUrls.getProducts}/${id}`;
   console.log(url);
-  const response = await fetch(lambdaUrls.getProduct(id), {
+  const response = await fetch(url, {
       'method': 'GET',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
+        'X-API-KEY': process.env.NEXT_PUBLIC_API_KEY ?? ''
       }
     })
     .then((res: any) => res.json())
@@ -39,6 +40,7 @@ export async function getProducts(): Promise<ProductType> {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+          'X-API-KEY': process.env.NEXT_PUBLIC_API_KEY ?? ''
         }
       })
       .then((res: any) => res.json())
@@ -85,6 +87,7 @@ export async function createProduct(data: CreateProductInput): Promise<any> {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
+      'X-API-KEY': process.env.NEXT_PUBLIC_API_KEY ?? ''
     },
     body: JSON.stringify(payload)
   }).then((response) => {
@@ -112,6 +115,7 @@ export async function updateProduct(id: string, data: CreateProductInput): Promi
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
+      'X-API-KEY': process.env.NEXT_PUBLIC_API_KEY ?? ''
     },
     body: JSON.stringify(payload)
   }).then((response) => {
@@ -129,6 +133,7 @@ export async function deleteProduct(id: string): Promise<any> {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
+      'X-API-KEY': process.env.NEXT_PUBLIC_API_KEY ?? ''
     }
   }).then((response) => {
     return response.json();

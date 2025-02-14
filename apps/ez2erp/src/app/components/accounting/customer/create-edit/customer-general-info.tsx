@@ -5,14 +5,11 @@ import { Input, Select } from 'rizzui';
 import cn from '@core/utils/class-names';
 import FormGroup from '@/app/shared/form-group';
 import {
-  categoryOption,
   productTypeOption,
 } from '@/app/shared/inventory/product/create-edit/form-utils';
 import dynamic from 'next/dynamic';
 import QuillLoader from '@core/components/loader/quill-loader';
 import { useEffect, useState } from 'react';
-import { getProductCategories } from '@/server/inventory/product-category-server';
-import { ProductCategoryType } from '@/types/product-category-type';
 // const Select = dynamic(() => import('rizzui').then((mod) => mod.Select), {
 //   ssr: false,
 //   loading: () => <SelectLoader />,
@@ -22,45 +19,29 @@ const QuillEditor = dynamic(() => import('@core/ui/quill-editor'), {
   loading: () => <QuillLoader className="col-span-full h-[143px]" />,
 });
 
-export default function ProductSummary({ className }: { className?: string }) {
+export default function CustomerGeneralInfo({ className }: { className?: string }) {
   const {
     register,
     control,
     formState: { errors },
   } = useFormContext();
-  const [productCategoryOptions, setProductCategoryOptions] = useState<any>([]);
 
-  useEffect(() => {
-    // Function to fetch cities based on the selected country
-    getProductCategories().then((data: any) => {
-      let options = [];
-      for (let i=0; i < data.length; i++){
-        options.push({
-          value: data[i].id,
-          label: data[i].name,
-        })
-      }
-      setProductCategoryOptions(options);
-    });
-  }, [productCategoryOptions]);
-
-  console.log(productCategoryOptions);
   return (
     <FormGroup
-      title="Summary"
+      title="General Info"
       description="Edit your product description and necessary information from here"
       className={cn(className)}
     >
       <Input
         label="Name"
-        placeholder="Product name"
+        placeholder="Customer name"
         {...register('name')}
         error={errors.name?.message as string}
       />
       <Input
-        label="SKU"
-        placeholder="Product sku"
-        {...register('sku')}
+        label="Email"
+        placeholder="Email address"
+        {...register('email')}
         error={errors.sku?.message as string}
       />
 

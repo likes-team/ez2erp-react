@@ -11,4 +11,5 @@ export const lambdaUrls = {
     (id: string) => `${process.env.NEXT_PUBLIC_LAMBDA_HOST}/products/${id}`,
     getProductCategories: `${process.env.NEXT_PUBLIC_LAMBDA_HOST}/product-categories`,
     createProductCategory: `${process.env.NEXT_PUBLIC_LAMBDA_HOST}/product-categories`,
+    customers: `${process.env.NEXT_PUBLIC_LAMBDA_HOST}/customers`,
 }

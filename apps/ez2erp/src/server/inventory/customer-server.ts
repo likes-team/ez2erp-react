@@ -1,11 +1,12 @@
 import { lambdaUrls } from "@/config/lambda-urls";
-import { ProductCategoryType } from "@/types/product-category-type";
+import { CustomerType } from "@/types/customer-type";
 import { ProductType } from "@/types/product-type";
-import { ProductCategoryFormInput } from "@/validators/create-category.schema";
 import { CreateProductInput } from "@/validators/create-product.schema";
 
 export async function getProduct(id: string): Promise<ProductType> {
-  const response = await fetch(lambdaUrls.getProduct(id), {
+  const url = `${lambdaUrls.getProducts}/${id}`;
+  console.log(url);
+  const response = await fetch(url, {
       'method': 'GET',
       headers: {
         'Accept': 'application/json',
@@ -34,8 +35,8 @@ export async function getProduct(id: string): Promise<ProductType> {
 }
 
 
-export async function getProductCategories(): Promise<ProductCategoryType> {
-    const response = await fetch(lambdaUrls.getProductCategories, {
+export async function getCustomers(): Promise<CustomerType> {
+    const response = await fetch(lambdaUrls.customers, {
         'method': 'GET',
         headers: {
           'Accept': 'application/json',
@@ -48,13 +49,18 @@ export async function getProductCategories(): Promise<ProductCategoryType> {
         const result: any = [];
         console.log(data.data.length);
         for (let i=0; i < data.data.length; i++){
-          const jsonData = data.data[i];
-          const productCategory: ProductCategoryType = {
-            id: jsonData.id,
-            name: jsonData.name,
-            description: jsonData.description
+          const customerJson = data.data[i];
+          const product: CustomerType = {
+            id: customerJson.id,
+            name: customerJson.name,
+            fname: customerJson.fname,
+            lname: customerJson.lname,
+            contact_no: customerJson.contact_no,
+            email: customerJson.email,
+            address: customerJson.address,
+            image: ''
           }
-          result.push(productCategory)
+          result.push(product)
         }
         return result;
       });
@@ -62,17 +68,27 @@ export async function getProductCategories(): Promise<ProductCategoryType> {
 } 
 
 
-export async function createProductCategory(data: ProductCategoryFormInput): Promise<any> {
-  console.log('payload:', data);
+export async function createProduct(data: CreateProductInput): Promise<any> {
+  console.log('product_data', data);
 
-  const createProductResponse = await fetch(lambdaUrls.createProductCategory, {
+  const payload = {
+    'name': data.name,
+    'sku': data.sku,
+    'product_type': data.productType,
+    'category_id': data.category,
+    'description': data.description,
+    'cost_price': data.costPrice,
+    'sale_price': data.salePrice
+  }
+
+  const createProductResponse = await fetch(lambdaUrls.createProduct, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'X-API-KEY': process.env.NEXT_PUBLIC_API_KEY ?? ''
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify(payload)
   }).then((response) => {
     return response.json();
   })
