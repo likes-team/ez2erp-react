@@ -49,15 +49,6 @@ export const authOptions: NextAuthOptions = {
       name: 'Credentials',
       credentials: {},
       async authorize(credentials: any) {
-        // You need to provide your own logic here that takes the credentials
-        // submitted and returns either a object representing a user or value
-        // that is false/null if the credentials are invalid
-        console.log(credentials);
-        
-        // const user = {
-        //   email: 'admin@admin.com',
-        //   password: 'admin',
-        // };
         const loginResponse = await fetch(lambdaUrls.login, {
           method: 'POST',
           headers: {

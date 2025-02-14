@@ -64,22 +64,6 @@ export default function CustomerGeneralInfo({ className }: { className?: string 
       />
 
       <Controller
-        name="category"
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <Select
-            options={productCategoryOptions}
-            value={value}
-            onChange={onChange}
-            label="Category"
-            error={errors?.category?.message as string}
-            getOptionValue={(option) => option.value}
-            dropdownClassName="h-auto"
-          />
-        )}
-      />
-
-      <Controller
         control={control}
         name="description"
         render={({ field: { onChange, value } }) => (

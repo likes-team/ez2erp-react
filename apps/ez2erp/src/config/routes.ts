@@ -12,7 +12,7 @@ export const routes = {
     createProductCategory: '/inventory/product-categories/create',
   },
   auth: {
-    signUp4: '/auth/sign-up-4',
+    signUp4: '/signup',
   },
   accounting: {
     customers: '/accounting/customers',
